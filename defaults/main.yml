@@ -1,0 +1,21 @@
+mattermost_version: 3.10.0
+mattermost_tar_checksum: 'sha256:ED64CB5357A8A3669386FD73B9A3F4934A10F0A9DA02DC4BE085E3D2E36886ED'
+
+mattermost_user_create: true
+mattermost_user: mattermost
+
+mattermost_group_create: true
+mattermost_group: mattermost
+
+mattermost_config_writable: false
+
+mattermost_site_url: 'mattermost.example.com'
+mattermost_listen_address: '127.0.0.1:8065'
+
+mattermost_database_driver: postgres
+mattermost_database_host: localhost
+mattermost_database_name: mattermost
+mattermost_database_user: mattermost
+mattermost_database_create: true
+
+mattermost_config: []

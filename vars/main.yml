@@ -1,0 +1,3 @@
+mattermost_tar: "mattermost-team-{{ mattermost_version }}-linux-amd64.tar.gz"
+mattermost_install_root: /opt/mattermost
+mattermost_data_root: /srv/mattermost

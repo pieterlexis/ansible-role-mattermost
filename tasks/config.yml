@@ -1,0 +1,58 @@
+---
+- name: Set the varibles for the config.json permissions
+  set_fact:
+    mattermost_config_owner: '{% if mattermost_config_writable %}{{ mattermost_user }}{% else %}root{% endif %}'
+    mattermost_config_group: '{% if mattermost_config_writable %}{{ mattermost_group }}{% else %}root{% endif %}'
+    mattermost_config_mode: 640
+
+- name: Configure the database
+  json_file:
+    dest: "{{ mattermost_install_root }}/{{ mattermost_version }}/config/config.json"
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+    owner: '{{ mattermost_config_owner }}'
+    group: '{{ mattermost_config_group }}'
+    mode: '{{ mattermost_config_mode }}'
+  with_items:
+    - { key: 'SqlSettings.DriverName', value: 'postgres' }
+    - { key: 'SqlSettings.DataSource', value: 'postgres://{{ mattermost_database_user }}:{{ mattermost_database_password }}@{{ mattermost_database_host }}/{{ mattermost_database_name }}' }
+    - { key: 'SqlSettings.AtRestEncryptKey', value: '{{ mattermost_database_at_rest_key }}' }
+  notify: restart mattermost
+
+- name: Configure the path for data files
+  json_file:
+    dest: "{{ mattermost_install_root }}/{{ mattermost_version }}/config/config.json"
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+    owner: '{{ mattermost_config_owner }}'
+    group: '{{ mattermost_config_group }}'
+    mode: '{{ mattermost_config_mode }}'
+  with_items:
+    - { key: 'FileSettings.DriverName', value: 'local' }
+    - { key: 'FileSettings.Directory', value: '{{ mattermost_data_root }}' }
+  notify: restart mattermost
+
+- name: Configure the listen address and web-settings
+  json_file:
+    dest: "{{ mattermost_install_root }}/{{ mattermost_version }}/config/config.json"
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+    owner: '{{ mattermost_config_owner }}'
+    group: '{{ mattermost_config_group }}'
+    mode: '{{ mattermost_config_mode }}'
+  with_items:
+    - { key: 'ServiceSettings.ListenAddress', value: '{{ mattermost_listen_address }}' }
+    - { key: 'ServiceSettings.SiteURL', value: '{{ mattermost_site_url }}' }
+  notify: restart mattermost
+
+- name: Configure other options
+  json_file:
+    dest: "{{ mattermost_install_root }}/{{ mattermost_version }}/config/config.json"
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+    as_string: "{{ item.as_string | default(False) }}"
+    owner: '{{ mattermost_config_owner }}'
+    group: '{{ mattermost_config_group }}'
+    mode: '{{ mattermost_config_mode }}'
+  with_items: "{{ mattermost_config }}"
+  notify: restart mattermost

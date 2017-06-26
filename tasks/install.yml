@@ -1,0 +1,55 @@
+---
+- name: Create mattermost installation dirs
+  file:
+    name: "{{ mattermost_install_root}}/{{ mattermost_version }}"
+    state: directory
+
+- name: Download mattermost
+  get_url:
+    url: "https://releases.mattermost.com/{{ mattermost_version }}/{{ mattermost_tar }}"
+    dest: /tmp/
+    checksum: "{{ mattermost_tar_checksum }}"
+
+- name: Unpack mattermost
+  unarchive:
+    src: "/tmp/{{ mattermost_tar }}"
+    dest: "{{ mattermost_install_root }}/{{ mattermost_version }}"
+    copy: no
+    extra_opts:
+      - '--strip-components=1'
+  args:
+    creates: "{{ mattermost_install_root }}/{{ mattermost_version }}/bin/platform"
+
+- name: Create symlink to this version
+  file:
+    state: link
+    dest: "{{ mattermost_install_root }}/current"
+    src: "{{ mattermost_install_root }}/{{ mattermost_version }}"
+  notify: restart mattermost
+
+- name: Add systemd unit file for Mattermost
+  template:
+    src: mattermost.service.j2
+    dest: /etc/systemd/system/mattermost.service
+  notify: reload systemd and restart mattermost
+
+- name: Create group for Mattermost
+  group:
+    name: '{{ mattermost_group }}'
+    system: true
+  when: mattermost_group_create
+
+- name: Create user for Mattermost
+  user:
+    name: '{{ mattermost_user }}'
+    group: '{{ mattermost_group }}'
+    system: yes
+    createhome: no
+  when: mattermost_user_create
+
+- name: Create data directory for mattermost
+  file:
+    state: directory
+    name: "{{ mattermost_data_root }}"
+    owner: "{{ mattermost_user }}"
+    group: "{{ mattermost_group }}"

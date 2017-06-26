@@ -1,0 +1,20 @@
+---
+- name: Install dependency packages
+  apt:
+    name: "{{item}}"
+    state: installed
+  with_items:
+    - 'icinga2-ido-pgsql'
+    - 'python-psycopg2'
+
+- name: Add database for mattermost
+  postgresql_db:
+    name: "{{ mattermost_database_name }}"
+  become_user: postgres
+
+- name: Add mattermost database user
+  postgresql_user:
+    name: "{{ mattermost_database_user }}"
+    password: "{{ mattermost_database_password }}"
+    db: "{{ mattermost_database_name }}"
+  become_user: postgres

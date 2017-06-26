@@ -1,0 +1,9 @@
+---
+- name: reload systemd and restart mattermost
+  command: systemctl daemon-reload
+  notify: restart mattermost
+
+- name: restart mattermost
+  service:
+    name: mattermost
+    state: restarted

@@ -1,0 +1,15 @@
+[Unit]
+Description=Mattermost
+After=network.target postgresql.service mariadb.service mysqld.service
+
+[Service]
+Type=simple
+ExecStart={{ mattermost_install_root }}/current/bin/platform
+Restart=on-failure
+RestartSec=10
+WorkingDirectory={{ mattermost_install_root }}/current
+User={{ mattermost_user }}
+Group={{ mattermost_group }}
+
+[Install]
+WantedBy=multi-user.target
