@@ -2,8 +2,8 @@
 - name: Set the varibles for the config.json permissions
   set_fact:
     mattermost_config_owner: '{% if mattermost_config_writable %}{{ mattermost_user }}{% else %}root{% endif %}'
-    mattermost_config_group: '{% if mattermost_config_writable %}{{ mattermost_group }}{% else %}root{% endif %}'
-    mattermost_config_mode: 640
+    mattermost_config_group: '{{ mattermost_group }}'
+    mattermost_config_mode: 0640
 
 - name: Configure the database
   json_file:
