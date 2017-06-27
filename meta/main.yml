@@ -21,3 +21,4 @@ galaxy_info:
 
 dependencies:
   - src: pieterlexis.json_file
+    version: 0.9.0
