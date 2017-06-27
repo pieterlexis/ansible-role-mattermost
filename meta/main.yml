@@ -16,7 +16,6 @@ galaxy_info:
        - xenial
        - yakkety
        - zesty
-       - artful
   galaxy_tags:
     - mattermost
 
