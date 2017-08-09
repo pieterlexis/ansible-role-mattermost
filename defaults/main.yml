@@ -1,5 +1,5 @@
-mattermost_version: 3.10.0
-mattermost_tar_checksum: 'sha256:ED64CB5357A8A3669386FD73B9A3F4934A10F0A9DA02DC4BE085E3D2E36886ED'
+mattermost_version: 4.0.2
+mattermost_tar_checksum: 'sha256:B8A736AB9C6F39FFED220713CA7847BB5ED63FD0F4CF9EC4CC90C792F7791B46'
 
 mattermost_user_create: true
 mattermost_user: mattermost
