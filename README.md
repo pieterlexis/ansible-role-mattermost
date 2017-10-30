@@ -16,10 +16,11 @@ Role Variables
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
-    mattermost_version: 3.10.0
-    mattermost_tar_checksum: 'sha256:ED64CB5357A8A3669386FD73B9A3F4934A10F0A9DA02DC4BE085E3D2E36886ED'
+    mattermost_version: 4.3.1
 
-The version of Mattermost to install and the tarball's checksum.
+The version of Mattermost to install.
+The tarball's checksum is retrieved from the `_mattermost_versions` variable, but can be overwritten by setting `mattermost_tar_checksum`.
+
 This role installs Mattermost to `/opt/mattermost/{{ mattermost_version }}` and sym-links `/opt/mattermost/current` to this directory.
 This allows for upgrades and downgrades.
 
