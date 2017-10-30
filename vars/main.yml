@@ -1,3 +1,7 @@
+_mattermost_versions:
+  4.3.0: 'sha256:9ab62b268faea063656138a24ebcc98be4224d31b6821d2fdfe65b3380fc6034'
+  4.3.1: 'sha256:df8fd12d10a2d65a0b5c3520590f85fabb89770c7daaa27530f4776a167e85b4'
+
 mattermost_tar: "mattermost-team-{{ mattermost_version }}-linux-amd64.tar.gz"
 mattermost_install_root: /opt/mattermost
 mattermost_data_root: /srv/mattermost
