@@ -5,6 +5,7 @@ _mattermost_versions:
   4.4.5: 'sha256:c8d0fcc067194bcef1d76d950d357510b81837f62d6d56e761922ff05aeccda7'
   4.5.0: 'sha256:e5078c6e9b428a1f7b9a5ba3f72f9e367671d3b6c73333e31907aa27f21a3503'
   4.6.0: 'sha256:bb26cc6e2495ca99764a8a995be623451a4a43a95ee010c5ffcfc1eabea177e5'
+  4.7.2: 'sha256:639388f5f5d0e0f18852883febd1170f59d37ee68d49c6b030089fd3ff3ff991'
 
 mattermost_tar: "mattermost-team-{{ mattermost_version }}-linux-amd64.tar.gz"
 mattermost_install_root: /opt/mattermost
