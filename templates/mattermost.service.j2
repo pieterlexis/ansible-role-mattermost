@@ -4,7 +4,7 @@ After=network.target postgresql.service mariadb.service mysqld.service
 
 [Service]
 Type=simple
-ExecStart={{ mattermost_install_root }}/current/bin/platform
+ExecStart={{ mattermost_install_root }}/current/bin/mattermost
 Restart=on-failure
 RestartSec=10
 WorkingDirectory={{ mattermost_install_root }}/current
